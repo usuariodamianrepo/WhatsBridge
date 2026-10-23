@@ -231,4 +231,7 @@
   <data name="Warning.Search" xml:space="preserve">
     <value>Your search returned more than {0} results. Improve your filter.</value>
   </data>
+  <data name="Nav.WhatsAppOrders" xml:space="preserve">
+    <value>WhatsApp Orders</value>
+  </data>
 </root>

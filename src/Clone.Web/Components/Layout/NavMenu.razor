@@ -9,14 +9,14 @@
     <FluentNavItem Href="/" Match="NavLinkMatch.All" IconRest="@(new Icons.Regular.Size20.Home())" IconActive="@(new Icons.Filled.Size20.Home())">@Localizer["Nav.Home"]</FluentNavItem>
     <FluentNavItem Href="counter" IconRest="@(new Icons.Regular.Size20.NumberSymbolSquare())" IconActive="@(new Icons.Filled.Size20.NumberSymbolSquare())">@Localizer["Nav.Counter"]</FluentNavItem>
     <FluentNavItem Href="weather" IconRest="@(new Icons.Regular.Size20.WeatherPartlyCloudyDay())" IconActive="@(new Icons.Filled.Size20.WeatherPartlyCloudyDay())">@Localizer["Nav.Weather"]</FluentNavItem>
-    <FluentNavItem Href="auth" IconRest="@(new Icons.Regular.Size20.LockClosedKey())" IconActive="@(new Icons.Filled.Size20.LockClosedKey())">@Localizer["Nav.AuthRequired"]</FluentNavItem>
+    <FluentNavItem Href="waorders" IconRest="@(new Icons.Regular.Size20.Replay())" IconActive="@(new Icons.Filled.Size20.Replay())">@Localizer["Nav.WhatsAppOrders"]</FluentNavItem>
     <AuthorizeView>
         <Authorized>
-            <FluentNavItem Href="Account/Manage">@context.User.Identity?.Name</FluentNavItem>
             <FluentNavItem Href="adminusers" IconRest="@(new Icons.Regular.Size20.Person())" IconActive="@(new Icons.Filled.Size20.Person())">@Localizer["Nav.AdminUsers"]</FluentNavItem>
             <FluentNavItem Href="documents" IconRest="@(new Icons.Regular.Size20.Document())" IconActive="@(new Icons.Filled.Size20.Document())">@Localizer["Nav.Documents"]</FluentNavItem>
             <FluentNavItem Href="documenttypes" IconRest="@(new Icons.Regular.Size20.Document())" IconActive="@(new Icons.Filled.Size20.Document())">@Localizer["Nav.DocumentTypes"]</FluentNavItem>
             <FluentNavItem Href="companies" IconRest="@(new Icons.Regular.Size20.BuildingFactory())" IconActive="@(new Icons.Filled.Size20.BuildingFactory())">@Localizer["Nav.Companies"]</FluentNavItem>
+            <FluentNavItem Href="Account/Manage">@context.User.Identity?.Name</FluentNavItem>
             <form action="Account/Logout" method="post">
                 <AntiforgeryToken />
                 <input type="hidden" name="ReturnUrl" value="@currentUrl" />
@@ -24,8 +24,8 @@
             </form>
         </Authorized>
         <NotAuthorized>
-            <FluentNavItem Href="Account/Register">@Localizer["Nav.Register"]</FluentNavItem>
-            <FluentNavItem Href="Account/Login">@Localizer["Nav.Login"]</FluentNavItem>
+            <FluentNavItem Href="Account/Register" IconRest="@(new Icons.Regular.Size20.PersonAdd())" IconActive="@(new Icons.Filled.Size20.PersonAdd())">@Localizer["Nav.Register"]</FluentNavItem>
+            <FluentNavItem Href="Account/Login" IconRest="@(new Icons.Regular.Size20.LockClosedKey())" IconActive="@(new Icons.Filled.Size20.LockClosedKey())">@Localizer["Nav.Login"]</FluentNavItem>
         </NotAuthorized>
     </AuthorizeView>
 </FluentNav>

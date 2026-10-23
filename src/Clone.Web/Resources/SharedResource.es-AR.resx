@@ -231,4 +231,7 @@
   <data name="Warning.Search" xml:space="preserve">
     <value>Tu búsqueda arrojó más de {0} resultados. Ajusta los filtros.</value>
   </data>
+  <data name="Nav.WhatsAppOrders" xml:space="preserve">
+    <value>WhatsApp Ordenes</value>
+  </data>
 </root>

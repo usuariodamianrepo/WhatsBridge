@@ -1,3 +1,5 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Text.Json.Serialization;
 
 namespace Clone.Models.Dtos;
@@ -8,6 +10,9 @@ namespace Clone.Models.Dtos;
 /// </summary>
 public class WhatsAppWebhookDto
 {
+    [BsonId]
+    public ObjectId Id { get; set; }
+
     [JsonPropertyName("object")]
     public string Object { get; set; } = string.Empty;
 

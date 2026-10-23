@@ -1,0 +1,18 @@
+﻿@page "/waorders"
+@rendermode InteractiveServer
+@using Clone.Models.Dtos
+
+<PageTitle>Whats App Orders</PageTitle>
+
+<h3>Whats App Orders</h3>
+
+<p>All WhatsApp orders will be displayed here.</p>
+
+<FluentDataGrid Id="orders_grid" Items="@orders" GridTemplateColumns="1.2fr 1fr 1fr 2fr 0.6fr 0.8fr" Loading="@(orders == null)" TGridItem="WhatsAppWebhookDto">
+    <PropertyColumn Title="InsertDate" Property="@(c => c!.InsertDate)" Align="DataGridCellAlignment.Start" />
+    <TemplateColumn Title="From">@GetFirstMessage(context)?.From</TemplateColumn>
+    <TemplateColumn Title="Contact">@GetFirstContact(context)?.Profile.Name</TemplateColumn>
+    <TemplateColumn Title="Order">@GetOrderText(context)</TemplateColumn>
+    <TemplateColumn Title="Items" Align="DataGridCellAlignment.End">@GetItemCount(context)</TemplateColumn>
+    <TemplateColumn Title="Total" Align="DataGridCellAlignment.End">@GetOrderTotal(context).ToString("N2")</TemplateColumn>
+</FluentDataGrid>
