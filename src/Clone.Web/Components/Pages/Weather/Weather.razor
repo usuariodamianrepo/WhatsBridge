@@ -1,0 +1,45 @@
+﻿@page "/weather"
+@attribute [StreamRendering]
+
+@inject IStringLocalizer<Weather> Localizer
+
+<PageTitle>@Localizer["Title"]</PageTitle>
+
+<h1>@Localizer["Title"]</h1>
+
+<p>@Localizer["Description"]</p>
+
+<!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
+<FluentDataGrid Id="weathergrid" Items="@forecasts" GridTemplateColumns="1fr 1fr 1fr 2fr" Loading="@(forecasts == null)" Style="height:204px;" TGridItem="WeatherForecast">
+    <PropertyColumn Title="@Localizer["Column.Date"]" Property="@(c => c!.Date)" Align="DataGridCellAlignment.Start"/>
+    <PropertyColumn Title="@Localizer["Column.TempC"]" Property="@(c => c!.TemperatureC)" Align="DataGridCellAlignment.Center"/>
+    <PropertyColumn Title="@Localizer["Column.TempF"]" Property="@(c => c!.TemperatureF)" Align="DataGridCellAlignment.Center"/>
+    <PropertyColumn Title="@Localizer["Column.Summary"]" Property="@(c => c!.Summary)" Align="DataGridCellAlignment.End"/>
+</FluentDataGrid>
+
+@code {
+    private IQueryable<WeatherForecast>? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        await Task.Delay(500);
+
+        var startDate = DateOnly.FromDateTime(DateTime.Now);
+        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
+        forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Date = startDate.AddDays(index),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = Localizer[$"Summary.{summaries[Random.Shared.Next(summaries.Length)]}"]
+        }).AsQueryable();
+    }
+
+    private class WeatherForecast
+    {
+        public DateOnly Date { get; set; }
+        public int TemperatureC { get; set; }
+        public string? Summary { get; set; }
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}

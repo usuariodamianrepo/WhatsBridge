@@ -1,0 +1,157 @@
+@page "/documents"
+@rendermode InteractiveServer
+
+@using Clone.DataAccess.Repositories.IRepository
+@using Clone.Utility
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JS
+@inject ILogger<Documents> Logger
+@inject INotificationService NotificationService
+@inject IUnitOfWork UnitOfWork
+
+@attribute [Authorize(Roles = RD.RoleAdmin)]
+
+<PageTitle>Documents</PageTitle>
+<FluentDialogProvider />
+<FluentLabel Size="@LabelSize.Large">Documents</FluentLabel>
+<FluentMessageBarProvider Section="@MESSAGEBAR_SECTION" Margin="@Margin.Vertical2" />
+
+<FluentKeyCode OnKeyDown="@KeyDownHandler">
+    <FluentStack HorizontalGap="6px" Wrap="true">
+        <FluentButton Title="Add" IconStart="@(new Icons.Regular.Size20.Add())" Appearance="ButtonAppearance.Default"
+                      OnClick="@OnAddClicked" />
+        <FluentTextInput @bind-Value=_NameSearch Placeholder="Title" TextInputType="TextInputType.Search" Maxlength=120 AutoComplete="off" Autofocus="true" />
+        <FluentButton Title="Search" IconStart="@(new Icons.Regular.Size20.DatabaseSearch())" Appearance="ButtonAppearance.Primary"
+                      OnClick="@OnSearchClicked" Loading="@_SearchButtonLoading">Search</FluentButton>
+    </FluentStack>
+</FluentKeyCode>
+
+<FluentMultiSplitter>
+
+    <FluentMultiSplitterPane Size="50%">
+        <FluentDataGrid @ref="_Grid" Items=@_Documents GridTemplateColumns="0.2fr 2fr 1fr 0.5fr 2fr 1fr 1.2fr">
+            <ChildContent>
+                <PropertyColumn Property="@(c => c.Id)" />
+                <PropertyColumn Property="@(c => c.Title)" Sortable="true" />
+                <PropertyColumn Title="Published" Property="@(c => c.Published.ToDateHHmm())" />
+                <PropertyColumn Title="Is Public" Property="@(c => c.IsPublic ? "Yes" : "No")" Align="DataGridCellAlignment.Center"/>
+                <PropertyColumn Property="@(c => c.URL)" />
+                <PropertyColumn Title="Document Type" Property="@(c => c.DocumentType.Name)" />
+                <TemplateColumn Title="Actions" Align="@DataGridCellAlignment.Center">
+                    <FluentButton Title="Edit" Appearance="ButtonAppearance.Subtle" IconEnd="@(new Icons.Regular.Size20.Edit())" OnClick="@(() => OnEditClicked(context.Id))" />
+                    <FluentButton Title="Details" Appearance="ButtonAppearance.Subtle" IconEnd="@(new Icons.Regular.Size20.TextDescription())" OnClick="@(() => OnDetailsClicked(context.Id))" />
+                    <FluentButton Title="Delete" Appearance="ButtonAppearance.Subtle" IconEnd="@(new Icons.Regular.Size20.Delete().WithColor(Color.Error))" OnClick="@(() => OnDeleteClicked(context.Id))" />
+                </TemplateColumn>
+            </ChildContent>
+            <EmptyContent>
+                <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Center" HorizontalGap="10">
+                    <FluentIcon Value="@(new Icons.Filled.Size24.Crown())" Color="@Color.Primary" />
+                    <div>Nothing to see here. Carry on!</div>
+                </FluentStack>
+            </EmptyContent>
+        </FluentDataGrid>
+    </FluentMultiSplitterPane>
+
+    <FluentMultiSplitterPane Collapsed="_CollapsedContent" Size="25%">
+        <FluentLabel Size="@LabelSize.Large">Content - Id: @(_Document?.Id)</FluentLabel>
+        <FluentDivider />
+        @if (_Document != null)
+        {
+            <EditForm Model="_Document" OnValidSubmit="@(async () => await OnSaveContentClicked())">
+                <DataAnnotationsValidator />
+                <FluentGrid Justify="JustifyContent.FlexStart" Spacing="1" Padding="3px">
+                    <FluentGridItem Xs="12" Sm="12">
+                        <FluentTextInput Label="Title" @bind-Value=_Document.Title Required="true" Maxlength=120 AutoComplete="off" />
+                    </FluentGridItem>
+                    <FluentGridItem Xs="12" Sm="12">
+                        <FluentTextInput Label="Description" @bind-Value=_Document.Description Required="true" Maxlength=450 AutoComplete="off" />
+                    </FluentGridItem>
+                    <FluentGridItem Xs="12" Sm="12">
+                        <FluentTextInput Label="URL" @bind-Value=_Document.URL Required="true" Maxlength=250 AutoComplete="off" />
+                    </FluentGridItem>
+                    <FluentGridItem Xs="12" Sm="12">
+                        <FluentDatePicker Label="Published" @bind-Value=_Document.Published />
+                    </FluentGridItem>
+                    <FluentGridItem Xs="12" Sm="12">
+                        <FluentCheckbox Label="Public" @bind-Value=_Document.IsPublic />
+                    </FluentGridItem>
+                    <FluentGridItem Xs="12" Sm="12">
+                        <FluentSelect Label="Document Type"
+                                      Placeholder="Select a Document Type"
+                                      Items="@_DocumentTypesSelect"
+                                      OptionText="@(i => i.Name)"
+                                      OptionValue="@(i => i.Id)"
+                                      @bind-Value="@_Document.DocumentTypeId" />
+                    </FluentGridItem>
+                </FluentGrid>
+                <FluentStack id="toolbar-footer" HorizontalGap="6px" Padding="3px">
+                    <FluentButton Type="ButtonType.Submit" Title="Save" IconStart="@(new Icons.Regular.Size20.Save())" Appearance="ButtonAppearance.Primary">Save</FluentButton>
+                    <FluentButton Title="Cancel" IconStart="@(new Icons.Regular.Size20.ArrowExit())" Appearance="ButtonAppearance.Default"
+                                  OnClick="OnCancelContentClicked">Cancel</FluentButton>
+                </FluentStack>
+            </EditForm>
+        }
+        else
+        {
+            <p>No Document selected.</p>
+        }
+    </FluentMultiSplitterPane>
+
+    <FluentMultiSplitterPane Collapsed="_CollapsedDetails" Size="25%">
+        <FluentLabel Size="@LabelSize.Large">Details - Id: @(_DocumentsDetails?.Id)</FluentLabel>
+        <FluentDivider />
+        @if (_DocumentsDetails != null)
+        {
+            <FluentGrid Justify="JustifyContent.FlexStart" Spacing="1" Padding="3px">
+                <FluentGridItem Xs="12" Sm="12">
+                    <b>Title:</b> @(_DocumentsDetails.Title)
+                </FluentGridItem>
+                <FluentGridItem Xs="12" Sm="12">
+                    <b>Description:</b> @(_DocumentsDetails.Description)
+                </FluentGridItem>
+                <FluentGridItem Xs="12" Sm="12">
+                    <b>URL:</b> @(_DocumentsDetails.URL)
+                </FluentGridItem>
+                <FluentGridItem Xs="12" Sm="12">
+                    <b>Published:</b> @(_DocumentsDetails.Published)
+                </FluentGridItem>
+                <FluentGridItem Xs="12" Sm="12">
+                    <b>Public:</b> @(_DocumentsDetails.IsPublic)
+                </FluentGridItem>
+                <FluentGridItem Xs="12" Sm="12">
+                    <b>Document Type Id:</b> @(_DocumentsDetails.DocumentTypeId)
+                </FluentGridItem>
+                <FluentDivider AlignContent="DividerAlignContent.Center">
+                    Audit Information
+                </FluentDivider>
+                <FluentGridItem Xs="12">
+                    <b>InsertDate:</b> @(_DocumentsDetails.InsertDate.ConvertToShow().ToString("yyyy-MM-dd HH:mm:ss"))
+                </FluentGridItem>
+                <FluentGridItem Xs="12">
+                    <b>InsertUser:</b> @(_DocumentsDetails.InsertUser)
+                </FluentGridItem>
+                <FluentGridItem Xs="12">
+                    <b>UpdateDate:</b> @(_DocumentsDetails.UpdateDate?.ConvertToShow().ToString("yyyy-MM-dd HH:mm:ss"))
+                </FluentGridItem>
+                <FluentGridItem Xs="12">
+                    <b>UpdateUser:</b> @(_DocumentsDetails.UpdateUser)
+                </FluentGridItem>
+            </FluentGrid>
+            <br />
+            <FluentStack id="toolbar-footer" HorizontalGap="6px">
+                <FluentButton Title="Copy" IconStart="@(new Icons.Regular.Size20.Copy())" Appearance="ButtonAppearance.Default"
+                              OnClick="OnCopyDetailsToClipboard">Copy</FluentButton>
+                <FluentButton Title="Cancel" IconStart="@(new Icons.Regular.Size20.ArrowExit())" Appearance="ButtonAppearance.Default"
+                              OnClick="OnCancelDetailsClicked">Cancel</FluentButton>
+            </FluentStack>
+        }
+        else
+        {
+            <p>No Document selected.</p>
+        }
+    </FluentMultiSplitterPane>
+
+</FluentMultiSplitter>

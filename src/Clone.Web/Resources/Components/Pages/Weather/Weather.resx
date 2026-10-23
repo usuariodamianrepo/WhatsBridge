@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Title" xml:space="preserve">
+    <value>Weather</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>This component demonstrates showing data.</value>
+  </data>
+  <data name="Column.Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Column.TempC" xml:space="preserve">
+    <value>Temp. (C)</value>
+  </data>
+  <data name="Column.TempF" xml:space="preserve">
+    <value>Temp. (F)</value>
+  </data>
+  <data name="Column.Summary" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="Summary.Freezing" xml:space="preserve">
+    <value>Freezing</value>
+  </data>
+  <data name="Summary.Bracing" xml:space="preserve">
+    <value>Bracing</value>
+  </data>
+  <data name="Summary.Chilly" xml:space="preserve">
+    <value>Chilly</value>
+  </data>
+  <data name="Summary.Cool" xml:space="preserve">
+    <value>Cool</value>
+  </data>
+  <data name="Summary.Mild" xml:space="preserve">
+    <value>Mild</value>
+  </data>
+  <data name="Summary.Warm" xml:space="preserve">
+    <value>Warm</value>
+  </data>
+  <data name="Summary.Balmy" xml:space="preserve">
+    <value>Balmy</value>
+  </data>
+  <data name="Summary.Hot" xml:space="preserve">
+    <value>Hot</value>
+  </data>
+  <data name="Summary.Sweltering" xml:space="preserve">
+    <value>Sweltering</value>
+  </data>
+  <data name="Summary.Scorching" xml:space="preserve">
+    <value>Scorching</value>
+  </data>
+</root>

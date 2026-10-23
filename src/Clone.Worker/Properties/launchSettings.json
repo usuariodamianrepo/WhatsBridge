@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Clone.Worker": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

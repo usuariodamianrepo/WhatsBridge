@@ -1,0 +1,23 @@
+@using Clone.Utility
+@namespace Clone.Web.Components.Shared
+@inject INotificationService NotificationService
+
+@code {
+    [Parameter] public string Section { get; set; } = "MESSAGEBAR_SERVICE_DEFAULT";
+    [Parameter] public int MaxResults { get; set; } = MaxRows.MaxThirty;
+    [Parameter] public string Message { get; set; } = "Your search returned more than {0} results. Improve your filter.";
+
+    public async Task ShowAsync()
+    {
+        await NotificationService.ShowMessageBarAsync(options =>
+        {
+            options.Section = Section;
+            options.Intent = MessageBarIntent.Warning;
+            options.Layout = MessageBarLayout.SingleLine;
+            options.Title = string.Format(Message, MaxResults);
+            options.AllowDismiss = true;
+            options.Lifetime = TimeSpan.FromSeconds(3);
+            options.ResultTiming = MessageBarResultTiming.Closed;
+        });
+    }
+}

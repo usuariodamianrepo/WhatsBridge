@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="src/Clone.DataAccess/Clone.DataAccess.csproj" />
+  <Project Path="src/Clone.Models/Clone.Models.csproj" />
+  <Project Path="src/Clone.Utility/Clone.Utility.csproj" />
+  <Project Path="src/Clone.Web/Clone.Web.csproj" />
+  <Project Path="src/Clone.WebApi/Clone.WebApi.csproj" Id="50480cf5-2163-49e1-aa88-87cac8bada63" />
+  <Project Path="src/Clone.Worker/Clone.Worker.csproj" Id="44ac1715-7e4f-49b2-bcd8-60939ffeec66" />
+</Solution>
