@@ -1,6 +1,0 @@
-@SmartAnt.WebApi_HostAddress = http://localhost:5260
-
-GET {{SmartAnt.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
