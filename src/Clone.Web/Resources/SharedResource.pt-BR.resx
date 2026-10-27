@@ -234,4 +234,7 @@
   <data name="Nav.WhatsAppOrders" xml:space="preserve">
     <value>WhatsApp Ordenes</value>
   </data>
+  <data name="Nav.UserCredentials" xml:space="preserve">
+    <value>Credenciales de Usuário</value>
+  </data>
 </root>

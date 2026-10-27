@@ -15,22 +15,18 @@ namespace Clone.Models
 {
     public sealed class $EntitySingularName : AuditableEntity
     {
-        [Display(Name = "Nombre"), MaxLength(60)]
         public string Name { get; set; } = string.Empty;
         
-	    [Display(Name = "Descripción"), MaxLength(450)]
+	    [MaxLength(450)]
         public string? Description { get; set; }
         
-        [Display(Name = "Precio"), Column(TypeName = "decimal(18,2)")]
-        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
-	    [Required(ErrorMessage = "El campo {0} es requerido")]
         [Display(Name = "Relationship")]
         public int RelationshipId { get; set; }
         [ForeignKey("RelationshipId")]
         [ValidateNever]
-        [Display(Name = "Relationship")]
         public Relationship Relationship { get; set; } = default!;
     }
 }

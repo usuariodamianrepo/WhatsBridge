@@ -13,6 +13,7 @@
     <AuthorizeView>
         <Authorized>
             <FluentNavItem Href="adminusers" IconRest="@(new Icons.Regular.Size20.Person())" IconActive="@(new Icons.Filled.Size20.Person())">@Localizer["Nav.AdminUsers"]</FluentNavItem>
+            <FluentNavItem Href="usercredentials" IconRest="@(new Icons.Regular.Size20.CheckboxPerson())" IconActive="@(new Icons.Filled.Size20.CheckboxPerson())">@Localizer["Nav.UserCredentials"]</FluentNavItem>
             <FluentNavItem Href="documents" IconRest="@(new Icons.Regular.Size20.Document())" IconActive="@(new Icons.Filled.Size20.Document())">@Localizer["Nav.Documents"]</FluentNavItem>
             <FluentNavItem Href="documenttypes" IconRest="@(new Icons.Regular.Size20.Document())" IconActive="@(new Icons.Filled.Size20.Document())">@Localizer["Nav.DocumentTypes"]</FluentNavItem>
             <FluentNavItem Href="companies" IconRest="@(new Icons.Regular.Size20.BuildingFactory())" IconActive="@(new Icons.Filled.Size20.BuildingFactory())">@Localizer["Nav.Companies"]</FluentNavItem>
@@ -24,7 +25,7 @@
             </form>
         </Authorized>
         <NotAuthorized>
-            <FluentNavItem Href="Account/Register" IconRest="@(new Icons.Regular.Size20.PersonAdd())" IconActive="@(new Icons.Filled.Size20.PersonAdd())">@Localizer["Nav.Register"]</FluentNavItem>
+            <FluentNavItem Href="Account/Register" IconRest="@(new Icons.Regular.Size20.Person())" IconActive="@(new Icons.Filled.Size20.Person())">@Localizer["Nav.Register"]</FluentNavItem>
             <FluentNavItem Href="Account/Login" IconRest="@(new Icons.Regular.Size20.LockClosedKey())" IconActive="@(new Icons.Filled.Size20.LockClosedKey())">@Localizer["Nav.Login"]</FluentNavItem>
         </NotAuthorized>
     </AuthorizeView>

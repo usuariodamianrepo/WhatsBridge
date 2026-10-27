@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2026-10-26T20:57:52.748Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.0.4 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="w1n-a6U2NYIPwRWrvNSB" version="24.0.4" type="device" pages="2">
+<mxfile host="Electron" modified="2026-10-27T17:23:00.883Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.0.4 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="LNkhGKX0mSqXeKopQELR" version="24.0.4" type="device" pages="2">
   <diagram name="Página-1" id="cCtVIDUIh2V2DcSw_Mcz">
-    <mxGraphModel dx="1195" dy="697" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -22,7 +22,7 @@
         <mxCell id="_-BeTgTNFri2OepJc8qf-10" value="Consumer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontColor=#393C56;" parent="_-BeTgTNFri2OepJc8qf-9" vertex="1">
           <mxGeometry y="30" width="140" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="NTMwRfLKAncsPC2D_6hf-13" value="WEBHOOK&lt;div&gt;Orders&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="_-BeTgTNFri2OepJc8qf-18" target="NTMwRfLKAncsPC2D_6hf-3" edge="1">
+        <mxCell id="NTMwRfLKAncsPC2D_6hf-13" value="WEBHOOK&lt;div&gt;Orders&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="_-BeTgTNFri2OepJc8qf-18" target="NTMwRfLKAncsPC2D_6hf-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="_-BeTgTNFri2OepJc8qf-18" value="Bla&lt;span style=&quot;background-color: initial;&quot;&gt;zor Order&lt;/span&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
@@ -48,7 +48,7 @@
         <mxCell id="USm_diw69TczPy-NCZfx-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="USm_diw69TczPy-NCZfx-1" target="_-BeTgTNFri2OepJc8qf-6" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="USm_diw69TczPy-NCZfx-1" value="WA" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+        <mxCell id="USm_diw69TczPy-NCZfx-1" value="Meta" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="40" y="320" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="USm_diw69TczPy-NCZfx-3" value="WhatsAppWebhookDto" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
@@ -138,17 +138,23 @@
             <mxPoint x="740" y="326" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="wo8DIIekgFiXLBtRCEbQ-4" value="Redis" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="720" y="400" width="100" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="wo8DIIekgFiXLBtRCEbQ-11" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+        <mxCell id="wo8DIIekgFiXLBtRCEbQ-11" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="40" y="440" as="sourcePoint" />
             <mxPoint x="840" y="440" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="wo8DIIekgFiXLBtRCEbQ-13" value="hostinger" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+        <mxCell id="wo8DIIekgFiXLBtRCEbQ-13" value="hostinger" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
           <mxGeometry x="40" y="80" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Kh4GcN04-eOX0cTJGbT1-1" value="WhatsApp" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="65" y="200" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pFWOysdrQvfIhPZp7wxi-1" value="Redis" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="400" width="120" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="pFWOysdrQvfIhPZp7wxi-2" value="Delete 1 semana" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="820" y="320" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

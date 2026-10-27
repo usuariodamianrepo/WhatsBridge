@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Clone.Utility
 {
@@ -44,6 +46,7 @@ namespace Clone.Utility
 
             return (a - b) / 10000;
         }
+
         /// <summary>
         /// Retorna en dias la diferencia entre dos fechas
         /// </summary>
@@ -143,6 +146,7 @@ namespace Clone.Utility
             else
                 return str;
         }
+
         public static string SubstringRight(string str, int length)
         {
             if (str.Length > length)
@@ -150,5 +154,17 @@ namespace Clone.Utility
             else
                 return str;
         }
+
+        public static string TokenGenerate()
+        {
+            var bytes = RandomNumberGenerator.GetBytes(32);
+            return Convert.ToBase64String(bytes)
+                .TrimEnd('=')
+                .Replace('+', '-')
+                .Replace('/', '_');
+        }
+
+        public static string TokenHash(string token) =>
+            Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(token)));
     }
 }

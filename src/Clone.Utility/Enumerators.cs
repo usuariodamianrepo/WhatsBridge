@@ -27,4 +27,21 @@
         [Display(Name = "Expirada")]
         expired = 5
     }
+
+    /// <summary>
+    /// Pendiente: opcional, solo si necesitás emitirla y activarla después.
+    /// Activa: puede autenticarse, siempre que no haya vencido.
+    /// Inactiva: deshabilitada manualmente; no debe volver a aceptarse.
+    /// </summary>
+    public enum CredentialStatus
+    {
+        [Display(Name = "Pendiente")]
+        pending = 1,
+        [Display(Name = "Activa")]
+        active = 2,
+        [Display(Name = "Inactiva")]
+        inactive = 3,
+        [Display(Name = "Expirada")]
+        expired = 4
+    }
 }

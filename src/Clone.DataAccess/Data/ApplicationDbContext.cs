@@ -1,4 +1,5 @@
-﻿using Clone.Models;
+﻿using Clone.DataAccess.Migrations;
+using Clone.Models;
 using Clone.Utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -12,8 +13,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Company> Companies { get; set; }
     public DbSet<Document> Documents { get; set; }
     public DbSet<DocumentType> DocumentTypes { get; set; }
-    public DbSet<OrderHeader> OrderHeaders { get; set; }
     public DbSet<OrderDetail> OrderDetails { get; set; }
+    public DbSet<OrderHeader> OrderHeaders { get; set; }
+    public DbSet<UserCredential> UserCredentials { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -69,7 +71,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .Property<uint>("xmin")
             .IsConcurrencyToken()
             .ValueGeneratedOnAddOrUpdate();
+        modelBuilder.Entity<UserCredential>()
+            .Property<uint>("xmin")
+            .IsConcurrencyToken()
+            .ValueGeneratedOnAddOrUpdate();
     }
 }
-
-
