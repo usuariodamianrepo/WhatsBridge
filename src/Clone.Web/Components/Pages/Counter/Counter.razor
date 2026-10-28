@@ -1,6 +1,7 @@
 ﻿@page "/counter"
 @rendermode InteractiveServer
 @using System.Globalization
+@using Clone.Utility
 
 <PageTitle>Counter</PageTitle>
 
@@ -45,17 +46,38 @@
 
 <div role="status" style="display: flex; align-items: center; gap: 12px; padding-bottom: 1em;">
     Current count: <FluentBadge Shape="BadgeShape.Rounded" Content="@($"{currentCount}")" />
+    <FluentButton Appearance="ButtonAppearance.Primary" OnClick="@OnIncrementCountClicked">Click me</FluentButton>
 </div>
-
-<FluentButton Appearance="ButtonAppearance.Primary" OnClick="@IncrementCount">Click me</FluentButton>
+<div role="status" style="display: flex; align-items: center; gap: 12px; padding-bottom: 1em;">
+    Token Generate: <code>@($"{token}")</code>
+    <FluentButton Appearance="ButtonAppearance.Primary" OnClick="@OnTokenGenerateClicked">Token Generate</FluentButton>
+</div>
+<div role="status" style="display: flex; align-items: center; gap: 12px; padding-bottom: 1em;">
+    Token Generate: <code>@($"{tokenHash}")</code>
+    <FluentButton Appearance="ButtonAppearance.Default" OnClick="@OnTokenHashClicked">Token Hash</FluentButton>
+</div>
 
 @code {
     private int currentCount = 0;
     private DateTime dt = DateTime.Now;
     private double number = 1999.69;
+    string token = string.Empty;
+    string tokenHash = string.Empty;
 
-    private async Task IncrementCount()
+    private async Task OnIncrementCountClicked()
     {
         currentCount++;
+    }
+
+    private async Task OnTokenGenerateClicked()
+    {
+        await Task.Delay(1000);
+        token = Tools.TokenGenerate();
+    }
+
+    private async Task OnTokenHashClicked()
+    {
+        await Task.Delay(1000);
+        tokenHash = Tools.TokenHash(token);
     }
 }
