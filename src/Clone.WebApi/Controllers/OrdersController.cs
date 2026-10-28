@@ -1,6 +1,7 @@
 ﻿using Clone.Models.Dtos;
 using Clone.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace Clone.WebApi.Controllers
 {
@@ -12,11 +13,13 @@ namespace Clone.WebApi.Controllers
 
         private readonly IConfiguration _configuration;
         private readonly OrderPublisher _orderPublisher;
+        private readonly ILogger<OrdersController> _logger;
 
-        public OrdersController(IConfiguration configuration, OrderPublisher orderPublisher)
+        public OrdersController(IConfiguration configuration, OrderPublisher orderPublisher, ILogger<OrdersController> logger)
         {
             _configuration = configuration;
             _orderPublisher = orderPublisher;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -36,15 +39,37 @@ namespace Clone.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Receive([FromBody] WhatsAppWebhookDto payload)
+        public async Task<IActionResult> Receive([FromHeader(Name = "X-Hub-Signature-256")] string? signature)
         {
+            using var buffer = new MemoryStream();
+            await Request.Body.CopyToAsync(buffer);
+            var body = buffer.ToArray();
+
+            if (body.Length == 0)
+            {
+                return BadRequest();
+            }
+
+            var appSecret = _configuration["WhatsApp:AppSecret"];
+            if (string.IsNullOrWhiteSpace(appSecret))
+            {
+                _logger.LogError("WhatsApp:AppSecret not configured; webhook rejected.");
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+            if (!WhatsAppSignatureValidator.IsValid(body, signature, appSecret))
+            {
+                _logger.LogWarning("X-Hub-Signature-256 signature invalid; webhook rejected.");
+                return Unauthorized();
+            }
+
+            var payload = JsonSerializer.Deserialize<WhatsAppWebhookDto>(body, JsonSerializerOptions.Web);
             if (payload is null)
             {
                 return BadRequest();
             }
 
-            // TODO: validar X-Hub-Signature-256 (HMAC-SHA256 con el App Secret) antes de procesar.
-            Console.WriteLine(payload);
+            _logger.LogInformation("Webhook received: {Object}", payload.Object);
             await _orderPublisher.OrderCreated(payload);
             return Ok();
         }
