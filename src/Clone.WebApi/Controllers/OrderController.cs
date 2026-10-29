@@ -36,14 +36,22 @@ namespace Clone.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Receive([FromBody] WhatsAppWebhookDto payload)
+        public async Task<IActionResult> Receive(
+            [FromQuery(Name = "hub.verify_token")] string? verifyToken,
+            [FromBody] WhatsAppWebhookDto payload)
         {
+            var expectedToken = _configuration["WhatsApp:VerifyToken"];
+
+            if (string.IsNullOrWhiteSpace(expectedToken) || verifyToken != expectedToken)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
+
             if (payload is null)
             {
                 return BadRequest();
             }
 
-            // TODO: validar X-Hub-Signature-256 (HMAC-SHA256 con el App Secret) antes de procesar.
             Console.WriteLine(payload);
             await _orderPublisher.OrderCreated(payload);
             return Ok();

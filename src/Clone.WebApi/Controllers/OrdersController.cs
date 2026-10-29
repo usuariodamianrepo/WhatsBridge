@@ -50,7 +50,7 @@ namespace Clone.WebApi.Controllers
                 return BadRequest();
             }
 
-            var appSecret = _configuration["WhatsApp:AppSecret"];
+            var appSecret = _configuration["WhatsApp:AppSecret"]; //SECRETKEY
             if (string.IsNullOrWhiteSpace(appSecret))
             {
                 _logger.LogError("WhatsApp:AppSecret not configured; webhook rejected.");

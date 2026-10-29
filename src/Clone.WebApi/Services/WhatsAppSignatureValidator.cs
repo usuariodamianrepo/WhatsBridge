@@ -4,8 +4,8 @@ using System.Text;
 namespace Clone.WebApi.Services;
 
 /// <summary>
-/// Valida o header X-Hub-Signature-256 (HMAC-SHA256 do corpo bruto com o App Secret).
-/// Referencia: https://developers.facebook.com/documentation/business-messaging/whatsapp/webhooks/create-webhook-endpoint
+/// Validates the X-Hub-Signature-256 header (HMAC-SHA256 of the raw body using the App Secret).
+/// Reference: https://developers.facebook.com/documentation/business-messaging/whatsapp/webhooks/create-webhook-endpoint
 /// </summary>
 public static class WhatsAppSignatureValidator
 {
@@ -24,7 +24,7 @@ public static class WhatsAppSignatureValidator
         }
 
         var received = signatureHeader[SHA256_PREFIX.Length..].Trim();
-        if (received.Length != 64) // hex de 32 bytes
+        if (received.Length != 64) // hex of 32 bytes
         {
             return false;
         }
